@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+
+ * {
+  box-sizing: border-box;
+}
+
+/* box-sizing: border-box;
+paddingやmarginを要素のサイズに含めることができるプロパティです。
+本来、width: 300px;と指定し、あわせてpadding: 0 20px;と指定すると横幅は合計で340pxとなってしまいます。
+このプロパティを使用すると、この場合でも300pxとして維持することができます。 */
