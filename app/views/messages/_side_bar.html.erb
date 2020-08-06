@@ -13,8 +13,13 @@
   <% current_user.rooms.each do |room| %>
     <div class="room">
       <div class="room-name">
-        <a href="#"><%= room.name%></a>
+        <%= link_to room.name, room_messages_path(room) %>
       </div>
     </div>
   <% end %>
 </div>
+
+
+<%# link_to room.name, room_messages_path(room)
+link_to room.name, room_messages_path(room.id)
+とも書ける。roomの中のidをrailsは勝手に読み取ってくれる。 %>
