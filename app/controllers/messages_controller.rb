@@ -3,6 +3,7 @@ class MessagesController < ApplicationController
   def index
     @message = Message.new
     @room = Room.find(params[:room_id])
+    @messages = @room.messages.includes(:user)
   end
 
   def new
@@ -43,3 +44,15 @@ end
 
 # ・render          ： controller → view
 # ・redirect_to     ： controller → URL → route → controller → view
+
+# N+1問題とは、アソシエーションを利用した場合に限り、データベースへのアクセス回数が多くなってしまう問題です。
+# これはアプリケーションのパフォーマンス低下につながります。
+# 通常、Tweet.allなどでデータを取得する際は、1度のアクセスで済みます。
+# しかし今回のような、ツイートが複数存在する一覧画面に、それぞれユーザー名を表示するケースを考えてみましょう。
+# この場合、tweetsに関連するusersの情報の取得に、ツイート数と同じ回数のアクセスが必要になります。
+# 1億ツイートあれば、1億回以上アクセスすることになり、アプリケーションのパフォーマンスが著しく下がることになるのです。
+# これを解決するためには、includesメソッドを利用します。
+
+# includesメソッドは、引数に指定された関連モデルを1度のアクセスでまとめて取得できます。
+# 書き方は、includes(:紐付くモデル名)とします。引数に関連モデルをシンボルで指定します。
+# includesメソッドを使用するとすべてのレコードを取得するため、allメソッドは省略可能です。
