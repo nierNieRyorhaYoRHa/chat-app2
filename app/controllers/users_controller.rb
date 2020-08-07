@@ -23,4 +23,4 @@ end
 
 
 # redirect_to action: :edit
-# render :edit  どっちでもおんなじ
+# render :edit  routesをかますかどうかが違う
